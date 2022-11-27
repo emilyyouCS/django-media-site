@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
+
+* {
+    font-family: 'Source Code Pro', serif;
+}
+
+h1 {
+    border-bottom: 1px solid #bbb;
+}
+
+/* comments */
+.comment {
+    padding: 10px;
+}
+
+.comment:nth-child(even) {
+    background: #efefef;
+}
+
+.comment .info {
+    font-weight: bold;
+    font-size: 12px;
+    color: #666;
+}
+
+/* pagination */
+.pagination {
+    margin: 40px 0;
+    font-weight: bold;
+}
+

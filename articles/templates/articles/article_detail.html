@@ -1,0 +1,37 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1>{{ article.title }}</h1>
+        <div>
+            <img class="rounded-circle" src="{{article.author.photo.url}}" alt="author profile pic" style="width: auto; height: 30px;" >
+            {{article.author}}
+        </div>
+        <p>{{ article.body }}</p>
+
+        <!--edit, delete, share-->
+        {% if article.author.get_username == user.get_username %}
+        <p>
+            <a href="{% url 'article_update' article.pk %}" class="text-decoration-none">Edit article <i class="bi bi-eraser-fill"></i></a>&nbsp;
+            <a href="{% url 'article_delete' article.pk %}" class="text-decoration-none">Delete article <i class="bi bi-trash3-fill"></i></a>&nbsp;
+            <a href="{% url 'article_share' article.pk %}" class="text-decoration-none">Share article <i class="bi bi-envelope-fill"></i></a>
+        </p>
+        {% endif %}
+
+        
+        <!--comments-->
+        <h5>{{ comments.count }} comment{{ comments.count|pluralize }}</h5>
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    Comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}
+                </p>
+                {{ comment.body|linebreaks }}
+            </div>
+        {% empty %}
+            <p>There are no comments.</p>
+        {% endfor %} 
+        {% include 'articles/comment_form.html' %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% if comment %}
+        <h3>comment added successfully</h3> 
+        <p><a href="{{ article.get_absolute_url }}">Back to the article</a></p>
+        <p><a href="{% url 'home' %}">Home</a></p>
+        {% else %}
+            {% include 'articles/comment_form.html' %}
+        {% endif %}
+    </div>
+{% endblock content  %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+    {% if query %}
+        <div class="container-fluid">
+            <h1>Posts containing "{{ query }}"</h1>
+            <h3>
+                {% with results.count as total_results %}
+                Found {{ total_results }} result{{ total_results|pluralize }}
+                {% endwith %}
+            </h3>
+            <br>
+
+            {% for article in results %}
+                <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                <p>{{ article.body|truncatewords_html:12 }}</p>
+            {% empty %}
+                <p>There are no results for your query.</p>
+            {% endfor %}
+
+            <p><a href="{% url 'article_search' %}">Search again</a></p>
+        </div>
+    {% else %}
+        <form method="get">
+        {% csrf_token %} {{form}}
+        <input type="submit" value="Search" />
+        </form>
+    {% endif %} 
+{% endblock content %}
